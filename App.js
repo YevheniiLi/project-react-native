@@ -13,56 +13,46 @@ import {
   Image,
   Text,
 } from "react-native";
+import { RegistrationScreen } from "./Screens/RegistrationScreen";
+import { LoginButton } from "./Screens/LoginScreen";
 
 
 export default function App() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  // const nameHandler = (text) => setName(text);
-  // const passwordHandler = (text) => setPassword(text);
+  const [mail, setMail] = useState("");
 
   const onLogin = () => {
+    console.log('Name:', name)
+    console.log('Email', mail)
+    console.log('Password:', password)
     Alert.alert("Credentials", `${name} + ${password}`);
   };
+  
   return (
-    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
-        source={ require ('./images/mainbg.png') }
+        source={require('./images/mainbg.png')}
       >
-        {/* <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      > */}
-        <View style={styles.form}>
-          <View>
-            <Text style={styles.inputTitle}>LOGIN</Text>
-            <TextInput style={styles.input} textAlign="center" />
-          </View>
-          <View style={{ marginTop: 20}}>
-            <Text style={styles.inputTitle}>EMAIL ADRESS</Text>
-            <TextInput style={styles.input} textAlign="center" />
-          </View>
-          <View style={{ marginTop: 20, marginBottom: 45}}>
-            <Text style={styles.inputTitle}>PASSWORD</Text>
-            <TextInput style={styles.input} 
-            textAlign="center" 
-            secureTextEntry={true} 
-            />
-          </View>
+        <View style={styles.contentContainer}>
+          <ImageBackground
+            style={styles.formImage}
+            source={require('./images/registrationbg.png')}
+          >
+            <View style={styles.formContainer}>
+              <RegistrationScreen
+                styles={styles}
+                {...{ name, setName, mail, setMail, password, setPassword }} 
+              />
+              <LoginButton styles={styles} onPress={onLogin} />
+            </View>
+          </ImageBackground>
         </View>
-
-        {/* <TextInput
-          value={password}
-          placeholder="Password"
-          onChangeText={passwordHandler}
-          style={styles.input}
-        /> */}
-        <Button title={"Login"} style={styles.input} onPress={onLogin} />
-        {/* </KeyboardAvoidingView> */}
       </ImageBackground>
     </View>
-    // </TouchableWithoutFeedback>
+  </TouchableWithoutFeedback>
   );
 }
 
@@ -70,6 +60,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image: {
     flex: 1,
@@ -79,6 +71,22 @@ const styles = StyleSheet.create({
     width: 450,
     height: 1000,
   },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingHorizontal: 40,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    width: "100%",
+  },
+  formImage: {
+    resizeMode: "cover",
+    height: 500,
+  },
+  formContainer: {
+    paddingHorizontal: 40,
+    paddingVertical: 50,
+  },
   input: {
     borderWidth: 1,
     borderColor: "#f0f8ff",
@@ -87,11 +95,17 @@ const styles = StyleSheet.create({
     width: 300,
   },
   form: {
-    marginHorizontal: 40, 
+    marginHorizontal: 40,
   },
   inputTitle: {
-    color: '#f0f8ff',
+    color: '#212121',
     marginBottom: 10,
-    fontSize: 18,
+    fontSize: 30,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    marginBottom: 32,
+  },
+  buttonContainer: {
+    marginTop: 10,
   }
 });
