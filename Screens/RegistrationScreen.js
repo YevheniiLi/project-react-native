@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 import { useState } from "react";
+import { ImageBackground } from "react-native-web";
 
 export const RegistrationScreen = ({
   styles,
@@ -11,6 +11,7 @@ export const RegistrationScreen = ({
   setMail,
   password,
   setPassword,
+  onLogin,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -19,14 +20,17 @@ export const RegistrationScreen = ({
   };
 
   return (
-    <View style={styles.form}>
-      <Text style={styles.inputTitle}>REGISTRATION</Text>
+    <KeyboardAvoidingView
+      style={styles.form}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Text style={styles.inputTitle}>Реєстрація</Text>
 
       <View>
         <TextInput
           style={[styles.input, { paddingLeft: 10 }]}
           value={name}
-          placeholder="Name"
+          placeholder="Логін"
           onChangeText={(text) => setName(text)}
           textAlign="left"
         />
@@ -35,7 +39,7 @@ export const RegistrationScreen = ({
         <TextInput
           style={[styles.input, { paddingLeft: 10 }]}
           value={mail}
-          placeholder="Email"
+          placeholder="Адреса електронної пошти"
           onChangeText={(text) => setMail(text)}
           textAlign="left"
         />
@@ -45,7 +49,7 @@ export const RegistrationScreen = ({
           <TextInput
             style={[styles.input, { paddingLeft: 10, paddingRight: 30 }]}
             value={password}
-            placeholder="Password"
+            placeholder="Пароль"
             onChangeText={(text) => setPassword(text)}
             textAlign="left"
             secureTextEntry={!showPassword}
@@ -54,10 +58,16 @@ export const RegistrationScreen = ({
             onPress={toggleShowPassword}
             style={{ position: "absolute", right: 10 }}
           >
-            <Text>Show</Text>
+            <Text>Показати</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+      <View style={styles.buttonContainer}>
+        <Button title={"Зареєструватися"} onPress={onLogin} />
+      </View>
+      <TouchableOpacity onPress={onLogin} style={styles.loginLink}>
+        <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingView>
   );
 };
