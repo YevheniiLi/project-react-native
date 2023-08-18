@@ -1,7 +1,14 @@
 import React from "react";
-import { View, Text, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useState } from "react";
-import { ImageBackground } from "react-native-web";
 
 export const RegistrationScreen = ({
   styles,
@@ -21,11 +28,11 @@ export const RegistrationScreen = ({
 
   return (
     <KeyboardAvoidingView
-      style={styles.form}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // style={styles.form}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 200 : 0}
     >
       <Text style={styles.inputTitle}>Реєстрація</Text>
-
       <View>
         <TextInput
           style={[styles.input, { paddingLeft: 10 }]}
@@ -66,7 +73,19 @@ export const RegistrationScreen = ({
         <Button title={"Зареєструватися"} onPress={onLogin} />
       </View>
       <TouchableOpacity onPress={onLogin} style={styles.loginLink}>
-        <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
+        <Text style={styles.loginLinkText}>
+          Вже є акаунт?{" "}
+          <Text
+            onPress={onLogin}
+            style={{
+              textDecorationLine: "none",
+              color: "blue",
+              textDecorationColor: "transparent",
+            }}
+          >
+            Увійти
+          </Text>
+        </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

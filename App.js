@@ -14,6 +14,7 @@ import {
   Text,
 } from "react-native";
 import { RegistrationScreen } from "./Screens/RegistrationScreen";
+// import LoginScreen from "./Screens/LoginScreen";
 
 export default function App() {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ export default function App() {
     console.log("Name:", name);
     console.log("Email", mail);
     console.log("Password:", password);
-    Alert.alert("Credentials", `${name} + ${password}`);
+    Alert.alert("Credentials", `${name} + ${password} + ${mail}`);
   };
 
   return (
@@ -35,18 +36,20 @@ export default function App() {
           source={require("./images/mainbg.png")}
         >
           <View style={styles.contentContainer}>
-            <ImageBackground
-              style={styles.formImage}
-              source={require("./images/registrationbg.png")}
-            >
-              <View style={styles.formContainer}>
-                <RegistrationScreen
-                  styles={styles}
-                  onLogin={onLogin}
-                  {...{ name, setName, mail, setMail, password, setPassword }}
-                />
-              </View>
-            </ImageBackground>
+            <TouchableWithoutFeedback>
+              <ImageBackground
+                style={styles.formImage}
+                source={require("./images/registrationbg.png")}
+              >
+                <View style={styles.formContainer}>
+                  <RegistrationScreen
+                    styles={styles}
+                    onLogin={onLogin}
+                    {...{ name, setName, mail, setMail, password, setPassword }}
+                  />
+                </View>
+              </ImageBackground>
+            </TouchableWithoutFeedback>
           </View>
         </ImageBackground>
         <ImageBackground
@@ -66,9 +69,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    flex: 1,
     resizeMode: "contain",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     width: "100%",
     height: "100%",
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     backgroundColor: "rgba(0, 0, 0, 0.3)",
-    width: "100%",
+    width: "auto",
     paddingTop: 70,
   },
   formImage: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 40,
     paddingVertical: 50,
-    marginTop: 40, // Меняем это значение для регулирования отступа вниз
+    marginTop: 40,
   },
   input: {
     borderWidth: 1,
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     textAlignVertical: "center",
-    marginBottom: 20, // Меняем это значение для регулирования отступа вниз
+    marginBottom: 20,
   },
   buttonContainer: {
     marginTop: 10,
